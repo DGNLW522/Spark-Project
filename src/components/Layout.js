@@ -10,20 +10,11 @@ export const Main = styled.main `
     display: flex; 
     align-items: center;
     flex-direction: column;
- `;   
+`;    
+
 export const Footer = styled.footer `
     display: flex; 
     justify-content: center;
     padding: 1em; 
     border-top: 1px solid #ccc;
-    `;
-
-    const Dashboard = () => {
-        const [active, setActive] = useState(0);
-    
-        const handleClick = (event) => {
-            const index = parseInt(event.target.id, 0);
-            if (index !== active) {
-                setActive(index);
-            }
-        };
+`;

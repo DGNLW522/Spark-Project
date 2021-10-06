@@ -9,8 +9,7 @@ export const TabsContainer = styled.div`
     `;
 
 const TabButtonContainer = styled.div`
-    display: flex;
-
+    display: flex; 
     > * {
         flex: 1 1 0;
         max-width: 10em;
@@ -22,10 +21,9 @@ export const Tab = styled.button `
     outline: none; 
     cursor: pointer; 
     position: relative; 
-   
     font-size: 1em; 
     border: ${(props) => (props.active ? "" : "1px solid #ccc")};
-    border-bottom; none; 
+    border-bottom: none; 
     background-color: ${(props) =>
         props.active ? props.theme.primary.main : "#fff"}; 
     heights: 3em; 
@@ -58,22 +56,30 @@ export default function Tabs(props){
         if (index !== active) { 
             setActive(index); 
         }
-};    
-            
-<TabsContainer> 
-    <TabButtonContainer> 
-        {contents.map((content, index) => ( 
-            <Tab onClick={handleClick} active = {active === index} id = {index}>
-                {content.title} 
-            </Tab> 
-        ))}
-        <TabContents> 
-            {contents.map((content, index) =>( 
-                    <Content active = {active === index}> 
+    };    
+
+    return(
+        <TabsContainer> 
+             <TabButtonContainer> 
+                {contents.map((content, index) => ( 
+                     <Tab 
+                        onClick={handleClick} 
+                        active = {active === index} 
+                        id = {index}
+                        key={index}
+                    >
+                        {content.title} 
+                    </Tab> 
+                 ))}
+            </TabButtonContainer>
+            <TabContent> 
+                {contents.map((content, index) => ( 
+                    <Content active={active === index}  key={index}> 
                         {content.elenents} 
                     </Content>
-            ))}
-        </TabContents> 
-    </TabButtonContainer>
-</TabsContainer>;
+                ))}
+            </TabContent> 
+        </TabsContainer>
+        
+    );
 }
