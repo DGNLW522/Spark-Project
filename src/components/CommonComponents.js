@@ -10,10 +10,11 @@ export const FluidContainer = styled.div`
 
 export const Container = styled.div`
     display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: flex-start; 
-    padding: 1em;     
+    flex-direction: ${(props) => props.flexDirection ? props.flexDirection : "column"}; 
+    justify-content: ${(props) => props.justifyContent ? props.justifyContent : "center"}; 
+    align-items: ${(props) => props.alignItems ? props.alignItems : "flex-start"};
+    width: ${(props) => props.disableFullWidth ? "initial" : "100%"};
+    padding: 1em;   
 `;
 
 export const ContainerInline = styled.div`
@@ -51,6 +52,8 @@ export const Button = styled.button`
     border-radius: 0.5em; 
     cursor: pointer; 
     margin: 1em;
+    
+    ${(props) => props.rounded ? "border-radius: 50%; padding: 0.5em;" : ""}
     
     :hover { 
         background-color: ${(props) => {
