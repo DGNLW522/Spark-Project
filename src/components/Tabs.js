@@ -68,7 +68,7 @@ export default function Tabs(props) {
                         onClick={handleClick}
                         active={active === index}
                         id={index}
-                        key={index}
+                         key={index}
                     >
                         {content.title}
                     </Tab>
