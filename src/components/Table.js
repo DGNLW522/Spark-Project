@@ -1,85 +1,88 @@
-import styled from "styled-components"; 
+import React from "react";
+import styled from "styled-components";
 
-import { capitalizeFirstLetter } from "../shared/utils"
+import { capitalizeFirstLetter } from "../shared/utils";
 
-const StyledTable = styled.table` 
-    border: none; 
-    border-collapse: separate; 
+const StyledTable = styled.table`
+    border: none;
+    border-collapse: collapse;
+    border-collapse: separate;
+    caption-side: top;
+    min-width: 80%;
     td,
     th {
-        border: 1px solid; 
-    } 
+        border: 1px solid;
+    }
     td {
-        padding: 5px 10px; 
-    { 
-    tbody tr { 
-        :nth-of-type(even) { 
-            backgroundcolor: ${(props)=>props.theme.primary.light};      
+        padding: 5px 10px;
+    }
+    tbody tr {
+        :nth-of-type(even) {
+            background-color: ${(props) => props.theme.primary.light};
         }
-        :hover { 
-            background-color: ${(props)=>props.theme.primary.dark}; 
+        :hover {
+            background-color: ${(props) => props.theme.primary.dark};
         }
     }
-    thead > tr { 
-        background-color: ${(props)=>props.theme.primary.main};
+    thead > tr {
+        background-color: ${(props) => props.theme.primary.main};
     }
     tr > th {
         padding: 0.25em 0.5em;
     }
     tr > td {
-        curser: pointer;
+        cursor: pointer;
     }
-
     caption {
         font-size: 0.9em;
-        padding: ${(props)=>props.theme.spacing(1)};
+        padding: 5px;
         font-weight: bold;
     }
 `;
 
-const TableMarkup = ({titles, data, handleClick, caption}) => (
+const TableMarkup = ({ titles, data, handleClick, caption }) => (
     <StyledTable>
         <caption>{caption}</caption>
-        <colgroup> 
+        <colgroup>
             {titles.map((title, index) => (
-                <col key={index} /> 
+                <col key={index} />
             ))}
-        </colgroup> 
+        </colgroup>
         <thead>
-            <tr> 
-                {titles.map((title, index) => ( 
-                    <th key={index}>{capitalizeFirstLetter(title)}</th> 
+            <tr>
+                {titles.map((title, index) => (
+                    <th key={index}>{capitalizeFirstLetter(title)}</th>
                 ))}
             </tr>
-        </thead> 
-        <tbody> 
-            {data.map((item, index) => ( 
-                <tr key={index} onClick={()=>handleClick(item.id)}> 
-                    {titles.map((title, index) => ( 
+        </thead>
+        <tbody>
+            {data.map((item, index) => (
+                <tr key={index} onClick={() => handleClick(item.id)}>
+                    {titles.map((title, index) => (
                         <td key={index}>
-                            {typeof item[title]==="boolean"
+                            {typeof item[title] === "boolean"
                                 ? item[title]
                                     ? "Yes"
                                     : "No"
                                 : item[title]}
-                        </td> 
+                        </td>
                     ))}
-                </tr> 
+                </tr>
             ))}
-        </tbody> 
-    </StyledTable>  
+        </tbody>
+    </StyledTable>
 );
 
-const Table = ({ data, handleRowClick, instruction }) => 
+const Table = ({ data, handleRowClick, instruction }) =>
     data ? (
-        <TableMarkup 
-            titles={Object.keys(data[0])}  
-            data={data} 
-            handleClick={handleRowClick ? handleRowClick : () => {}}
+        <TableMarkup
+            titles={Object.keys(data[0])}
+            data={data}
+            handleClick={handleRowClick ? handleRowClick : ()=>{}}
             caption={instruction ? instruction : ""}
         />
     ) : (
-        "No Data to Populate"
+        "No data to populate"
     );
 
 export default Table;

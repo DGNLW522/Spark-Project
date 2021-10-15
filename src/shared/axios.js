@@ -1,8 +1,8 @@
 import axios from 'axios'; 
 
-const lmsAPIHOostProd = "https ://api.lms.net"; 
-const lmsAPIHostDev = "http://localhost: 3001"; 
-const lmsAPIHost = process.env.NODE_ENV === "development" ? lmsAPIHostDev : lmsAPIHOostProd; 
+const lmsAPIHostProd = "https://api.lms.net"; 
+const lmsAPIHostDev = "http://localhost:3009"; 
+const lmsAPIHost = process.env.NODE_ENV === "development" ? lmsAPIHostDev : lmsAPIHostProd; 
 
 const instance = axios.create({ 
     baseURL: lmsAPIHost 

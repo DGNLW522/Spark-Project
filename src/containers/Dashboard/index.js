@@ -4,22 +4,22 @@ import { useSelector, useDispatch } from "react-redux";
 import Tabs from "../../components/Tabs";
 import Spinner from "../../components/Spinner";
 
-import Books from "./Books/Book";
- 
-import { setBooks } from "../../store/bookSlice";
+import Books from "./Books/index";
+
+import { setBooks } from "../../store/booksSlice";
 import { getBooks } from "../../api/bookAPI";
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const books  = useSelector((state) => state.books.value)
-  const dispatch = useDispatch()
+  const books = useSelector((state) => state.books.value);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsLoading(true);
     getBooks()
       .then((response) => {
-        if (!response.error) { 
+        if (!response.error) {
           dispatch(setBooks(response.data));
         }
       })
@@ -34,7 +34,7 @@ const Dashboard = () => {
   const contents = [
     {
       title: "Books",
-      elements: <books catalog={books } />,
+      elements: <Books catalog={books} />,
     },
     {
       title: "Members",
@@ -42,11 +42,7 @@ const Dashboard = () => {
     },
   ];
 
-  return isLoading ? (
-    <Spinner />
-  ) : (
-    books.length > 0 && <Tabs contents={contents} />
-  );
+  return isLoading ? <Spinner /> : <Tabs contents={contents} />;
 };
 
 export default Dashboard;

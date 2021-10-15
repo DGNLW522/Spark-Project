@@ -1,8 +1,9 @@
 import React, { useState } from "react"; 
-import { Button, Container, FlexRow, } from ".././../components/CommonComponents"; 
+
+import { Button, Container,   } from "../../../components/CommonComponents"; 
 import { Modal, DialogBox } from "../../../components/Modal"; 
 
-import Input from ". ../../../components/Input"; 
+import Input from "../../../components/Input"; 
 
 export default function AddEditBookDialog({ isEdit = false, handleClose, show, data }) {
     const [title, setTitle] = useState(isEdit && data && data.title ? data.title : ""); 
@@ -11,7 +12,7 @@ export default function AddEditBookDialog({ isEdit = false, handleClose, show, d
     const clearInputs = () => {
         setTitle("")
         setAuthor("")
-    }
+    };
     
     const sendDone = () => {
         if (title !== "" && author !== "") { 
@@ -33,9 +34,9 @@ export default function AddEditBookDialog({ isEdit = false, handleClose, show, d
     return ( 
         <Modal show={show}>
             <DialogBox> 
-                <h2>{`${isEdit ? "edit" : "add"} book`}</h2> 
+                <h2>{`${isEdit ? "Edit" : "Add"} book`}</h2> 
                 <p>Enter the below details of the book</p> 
-                <Container alignItens="center" disablefullWidth> 
+                <Container alignItems="center" disableFullWidth> 
                     <Input 
                         label="Title" 
                         value={title} 
@@ -49,7 +50,7 @@ export default function AddEditBookDialog({ isEdit = false, handleClose, show, d
                     <Input 
                         label="Author" 
                         value={author} 
-                        onChange={(e) setAuthor(e.target.value)} 
+                        onChange={(e) => setAuthor(e.target.value)} 
                         type="text" 
                         id="author" 
                         name="author"
@@ -58,12 +59,12 @@ export default function AddEditBookDialog({ isEdit = false, handleClose, show, d
                     />
                     </Container> 
                     
-                    <FlexRow>
+                 
                         <Button onClick={sendDone}>Done</Button>
-                        <Button onClick={sendCancel}> color="secondary">
+                        <Button onClick={sendCancel} color="secondary">
                             Cancel 
                         </Button>
-                    </FlexRow>
+                     
                 </DialogBox>    
             </Modal>
     );

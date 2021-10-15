@@ -1,7 +1,7 @@
 import styled from "styled-components"; 
 import { Container } from "./CommonComponents"; 
 
-const Label = styled. label`
+const Label = styled.label`
     font-size: 0.75em; 
     margin-bottom: 0.Sem; 
     display: block; 
@@ -16,9 +16,9 @@ const StyledInput = styled.input`
     box-sizing: border-box; 
 `;
 
-export default function Input({ label, vatue, onChange, ...rest }) { 
+export default function Input({ label, value, onChange, ...rest }) { 
     return ( 
-        <Container alignItens="flex-start"> 
+        <Container alignItems="flex-start"> 
             <Label>{label}</Label> 
             <StyledInput value={value} onChange={onChange} {...rest} />
         </Container>

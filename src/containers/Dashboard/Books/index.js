@@ -1,9 +1,13 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import { IoAddSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 
-import Table from "../../../components/Table"; 
-import { FluidContainer, Button, Container, } from "../../../components/CommonComponents"; 
+import Table from "../../../components/Table";
+import {
+  FluidContainer,
+  Button,
+  Container,
+} from "../../../components/CommonComponents";
 
 import Book from "./Book";
 import AddEditBookDialog from "./AddEditBookDialog";
@@ -11,61 +15,58 @@ import AddEditBookDialog from "./AddEditBookDialog";
 import { addBook } from "../../../api/bookAPI";
 import { addBook as addBookToStore } from "../../../store/booksSlice";
 
-const Books = ({ catalog }) => { 
-   const [selectedBookId, setSelectedBookId] = useState(null);
-   const [showAddBookDialog, setShowAddBookDialog] = useState(flase);
+const Books = ({ catalog }) => {
+  const [selectedBookId, setSelectedBookId] = useState(null);
+  const [showAddBookDialog, setShowAddBookDialog] = useState(false);
 
-   const dispatch = useDispatch();
-   
-    const handleTableRowClick = (id) => {
-        selectedBookId(id);
-    };
+  const dispatch = useDispatch();
 
-    const hanleBookViewBackClick = () => {
-        setSelectedBookId(null);
-    };
+  const handleTableRowClick = (id) => {
+    setSelectedBookId(id);
+  };
 
-    const handleAddBook = (confirmed, data) => {
-         if (confirmed) {
-            addBook(data)
-                .then((response) => {
-                    if (!response.error) { 
-                        dispatch(addBookToStore(response.data));
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });       
-        }
-        setShowAddBookDialog(false);
-    };
+  const handleBookViewBackClick = () => {
+    setSelectedBookId(null);
+  };
 
-    return selectedBookId === null ? ( 
-        <>
-            <FluidContainer> 
-                <Container
-                    flexDirection="row"
-                    justifyContent="flex-end"
-                    alignItems="flex-start"
-                >
-                    <Button rounded onClick={()=> setShowAddBookDialog(true)}>
-                        <IoAddSharp/>
-                    </Button>
-                </Container>
-                <Table 
-                    data={catalog} 
-                    handleRowClick={handleTableRowClick} 
-                    instruction="Click row to view book"
-                />
-        </FluidContainer> 
-        <AddEditBookDialog
-            show={showAddBookDialog}
-            handleClose={handleAddBook}
+  const handleAddBook = (confirmed, data) => {
+    if (confirmed) {
+      addBook(data)
+        .then((response) => {
+          if (!response.error) {
+            dispatch(addBookToStore(response.data));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    setShowAddBookDialog(false);
+  };
+
+  return selectedBookId === null ? (
+    <>
+      <FluidContainer>
+        <Container
+          flexDirection="row"
+          justifyContent="flex-end"
+          alignItems="flex-start"
+        >
+          <Button rounded onClick={() => setShowAddBookDialog(true)}>
+            <IoAddSharp />
+          </Button>
+        </Container>
+        <Table
+          data={catalog}
+          handleRowClick={handleTableRowClick}
+          instruction="Click row to view book"
         />
+      </FluidContainer>
+      <AddEditBookDialog show={showAddBookDialog} handleClose={handleAddBook} />
     </>
-    ) : ( 
-        <Book id={selectedBookId} handleBackClick={handleBookViewBackClick} />
-    );
+  ) : (
+    <Book id={selectedBookId} handleBackClick={handleBookViewBackClick} />
+  );
 };
 
 export default Books;

@@ -11,19 +11,20 @@ export const bookSlice = createSlice({
     },
     updateBook: (state, action) => { 
             const updatedBooks = [...state.value]; 
-            const id = action.payload. id; 
+            const id = action.payload.id; 
             const index = updatedBooks.findIndex( 
                 (element) => element.id === id 
             ); 
             updatedBooks.splice(index, 1, action.payload); 
             state.value = updatedBooks;
-    addBook: (state, action)=>{ 
-      const updatedBooks = [...state.value]; 
-      updatedBooks.push (action.payload); 
-      state.value = updatedBooks; 
+            },
+            addBook: (state, action)=>{ 
+            const updatedBooks = [...state.value]; 
+            updatedBooks.push (action.payload); 
+            state.value = updatedBooks; 
     }, 
-    deleteBook: (state, action) => {
-      const updatedBooks = [...state.value); 
+      deleteBook: (state, action) => {
+      const updatedBooks = [...state.value]; 
       const id = action.payload; 
       const index = updatedBooks.findIndex ( 
         (element) => element.id === id 
@@ -35,6 +36,6 @@ export const bookSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setBooks, updateBook,addBook, deleteBook } = counterSlice.actions
+export const { setBooks, updateBook,addBook, deleteBook } = bookSlice.actions
 
 export default bookSlice.reducer;
