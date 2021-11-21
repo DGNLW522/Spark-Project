@@ -7,12 +7,15 @@ import Spinner from "../../components/Spinner";
 import Books from "./Books/index";
 
 import { setBooks } from "../../store/booksSlice";
+import { setMembers } from "../../store/membersSlice";
 import { getBooks } from "../../api/bookAPI";
+import { getMembers } from "../../api/memberAPI";
+import Members from "./Members";
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
-
   const books = useSelector((state) => state.books.value);
+  const members = useSelector((state) => state.members.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,6 +34,22 @@ const Dashboard = () => {
       });
   }, [dispatch]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    getMembers()
+        .then((response) => {
+            if (!response.error) {
+              dispatch(setMembers(response.data));
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        });
+}, [dispatch]);
+
   const contents = [
     {
       title: "Books",
@@ -38,7 +57,7 @@ const Dashboard = () => {
     },
     {
       title: "Members",
-      elements: <h1>Contents of members go here. Nice!</h1>,
+      elements: <Members members={members}/> ,
     },
   ];
 

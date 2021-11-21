@@ -1,7 +1,8 @@
-export const getMembers = () => [
-    { id: "1", name: "Naveen Lakshan" },
-    { id: "2", name: "Pearl Wickramarathna" },
-    { id: "3", name: "B.L Wasanthi" },
-    { id: "4", name: "Udari Shashikala" }, 
-    { id: "5", name: "Ajith Amaraweera" },  
-];
+import { getRequest, postRequest } from "./util";
+
+const BASE_URL = "/member";
+
+export const getMembers = () => getRequest(BASE_URL);
+
+export const addMember = (data) =>
+    postRequest(`${BASE_URL}`, data);
